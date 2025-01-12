@@ -14,10 +14,10 @@ public class Pool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        poolList = new List<GameObject>();
-        for (int i = 0; i < poolSize; i++) // para que instancie x objetos al inicio 
+        poolList = new List<GameObject>(); // Inicializa la lista que almacenará los objetos
+        for (int i = 0; i < poolSize; i++) // Instancia el numero de objetos iniciales especificado por `poolSize`
         {
-            AddGameObject();
+            AddGameObject(); // Agrega un objeto a la lista
         }
     }
 
@@ -28,28 +28,29 @@ public class Pool : MonoBehaviour
     }
 
     
-    GameObject AddGameObject()
+    GameObject AddGameObject() // Añadir un objeto al pool
     {
-        GameObject clone = Instantiate(objectToPool); // el gameobject
-        clone.SetActive(false); // lo activas en falso para que vaya 
-        poolList.Add(clone); // lo añadimos a la lista 
+        GameObject clone = Instantiate(objectToPool); // Instancia el objeto en el pool
+        clone.SetActive(false); // Desactiva el objeto para que no esté disponible hasta que se necesite
+        poolList.Add(clone); // Agrega el objeto desactivado a la lista del pool
 
-        return clone;
+        return clone; // Devuelve el objeto recién creado
     }
 
-    public GameObject GimmeInactiveGameObject()
+    public GameObject GimmeInactiveGameObject() // Para obtener un objeto inactivo del pool
     {
-        foreach (GameObject obj in poolList) // para recorrer la lista 
+        foreach (GameObject obj in poolList) // Recorre todos los objetos en el pool
         { 
-            if (!obj.activeSelf) // si el objeto no esta activo
+            if (!obj.activeSelf) // Si el objeto está inactivo, lo devuelve
             {
                 return obj; 
             }
         }
-        if (shouldExpand) // si queremos expandir la pool 
+        if (shouldExpand) // Si no se encuentra un objeto inactivo y el pool está configurado para expandirse 
         {
-            return AddGameObject();
+            return AddGameObject(); // Agrega un nuevo objeto al pool y lo devuelve
         }
-        return null; 
+        return null; // Si no se encuentra un objeto inactivo y no se puede expandir el pool, devuelve null
+
     }
 }

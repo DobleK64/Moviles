@@ -11,36 +11,36 @@ public class AdDisplayManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsS
     public int androidID, appleID; //IDs de android y Iphone
     public bool testMode = true;
 
-    public string adType = "Interstitial_Android"; //Interstitial_Android , Banner_Android
+    public string adType = "Interstitial_Android"; //Interstitial_Android , Banner_Android //Tipo de anuncio a mostrar
 
-    public void OnUnityAdsAdLoaded(string placementId) //Cuando haya cargado el anuncio
+    public void OnUnityAdsAdLoaded(string placementId) // Callback cuando un anuncio se carga correctamente
     {
-        //throw new System.NotImplementedException();
+        // Muestra el anuncio una vez cargado
         Advertisement.Show(adType, this);
     }
 
-    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message) // Cuando el anuncio ha fallado a la hora de cargar
+    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message) // Callback cuando un anuncio no se puede cargar
     {
         //throw new System.NotImplementedException();
         Debug.Log("Ha fallado: " + message);
     }
 
-    public void OnUnityAdsShowClick(string placementId) //Cuando clikeas en el anuncio
+    public void OnUnityAdsShowClick(string placementId) // Callback cuando el usuario hace clic en el anuncio
     {
         //throw new System.NotImplementedException();
     }
 
-    public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState) // Cuando el anuncio se ha completado
+    public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState) // Callback cuando un anuncio se muestra completamente
     {
-        GameManager.instance.LoadScene("Menu"); // Cuando se termina el anuncio nos lleva a la escena del menu.
+        GameManager.instance.LoadScene("Menu"); // Cuando el anuncio termina, carga la escena del menú
     }
 
-    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message) // Cuando el anuncio no se ha enseñado por completo
+    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message) // Callback cuando ocurre un error al mostrar un anuncio
     {
         //throw new System.NotImplementedException();
     }
 
-    public void OnUnityAdsShowStart(string placementId) // Cuando el anuncio empieza
+    public void OnUnityAdsShowStart(string placementId) // Callback cuando un anuncio comienza a mostrarse
     {
         //throw new System.NotImplementedException();
     }
@@ -50,7 +50,7 @@ public class AdDisplayManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsS
         if (!instance)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // Evita que este objeto se destruya al cambiar de escena
         }
         else
         {
@@ -59,8 +59,8 @@ public class AdDisplayManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsS
     }
 
     private void Start()
-    {
-        if (!Advertisement.isInitialized) //Pool de anuncios
+    { 
+        if (!Advertisement.isInitialized) //Pool de anuncios // Inicializa Unity Ads si aún no está inicializado
         {
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR || UNITY_ANDROID
             Advertisement.Initialize(androidID.ToString(), testMode, this);
@@ -72,10 +72,10 @@ public class AdDisplayManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsS
         }
     }
 
-    public void ShowAd()
-    {
-        if (Advertisement.isInitialized)
-        {
+    public void ShowAd() // Método público para mostrar un anuncio
+    { 
+        if (Advertisement.isInitialized) // Verifica si Unity Ads está inicializado antes de intentar cargar un anuncio
+        { 
             Advertisement.Load(adType, this);
         }
     }
@@ -85,12 +85,12 @@ public class AdDisplayManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsS
 
     }
 
-    public void OnInitializationComplete()
+    public void OnInitializationComplete() // Callback cuando Unity Ads se inicializa correctamente
     {
         //throw new System.NotImplementedException();
     }
 
-    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+    public void OnInitializationFailed(UnityAdsInitializationError error, string message) // Callback cuando falla la inicialización de Unity Ads
     {
         //throw new System.NotImplementedException();
     }

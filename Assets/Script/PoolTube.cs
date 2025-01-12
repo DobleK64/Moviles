@@ -17,36 +17,36 @@ public class PoolTube : MonoBehaviour
     {
         _pool = new List<GameObject>(); //instanciamos la lista
 
-        for (int i = 0; i < poolSize; i++) //Instancia X objectos al inicio
+        for (int i = 0; i < poolSize; i++) // Llena la pool inicial con el número de objetos especificado por `poolSize`
         {
             AddGameObjectToPool();
         }
     }
 
-    public GameObject GimmeInactiveGameObject()
+    public GameObject GimmeInactiveGameObject() // Método que devuelve un objeto inactivo de la pool
     {
-        foreach (GameObject obj in _pool)
+        foreach (GameObject obj in _pool) // Busca en la lista un objeto que esté inactivo
         {
-            if (!obj.activeSelf) //Si el objecto NO esta activado (desatcivado)
+            if (!obj.activeSelf) // Verifica si el objeto no está activo
             {
                 return obj; //Si el objetco no es activo lo damos
             }
         }
 
-        if (shouldExpand) //Si deberia de expandirse la pool se instancia un nuevo objecto
+        if (shouldExpand) // Si no hay objetos inactivos y la opción de expansión está activada
         {
-            return AddGameObjectToPool();
+            return AddGameObjectToPool(); // Crea un nuevo objeto y lo devuelve
         }
 
-        return null; //Si no encontramos nada devolvemos NULL, osea nada.
+        return null; // Si no se encuentra un objeto inactivo y no se puede expandir, devuelve null
     }
 
     private GameObject AddGameObjectToPool() //añadir GameObject a la pool
     {
-        GameObject clone = Instantiate(objectToPool);
-        clone.SetActive(false); // desactivamos el objecto para que no se utilice de primeras, consume menos recuros asi
-        _pool.Add(clone); // lo guardamos en la lista
+        GameObject clone = Instantiate(objectToPool); // Crea una instancia del objeto a pool
+        clone.SetActive(false); // Lo desactiva para que no esté visible ni consuma recursos
+        _pool.Add(clone);  // Añade el objeto a la lista de la pool
 
-        return clone;
+        return clone; // Devuelve la referencia del objeto recién creado
     }
 }
