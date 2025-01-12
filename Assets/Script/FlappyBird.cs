@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class FlappyBird : MonoBehaviour
@@ -15,20 +16,44 @@ public class FlappyBird : MonoBehaviour
         
     }
 
-    private void Update()
+    void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            pres = 0.8f;
-        }
-    }
 
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE //PARA QUE FUNCIONE EN PC
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            pres = 0.8f;         
+        }
+
+#elif UNITY_ANDROID //PARA QUE FUNCIONE EN ANDROID
+
+        foreach (Touch touch in Input.touches)
+        {
+            if (touch.phase == TouchPhase.Began)
+            {
+               pres = 0.8f;  
+            }
+        }
+#endif
+    }
+    public void Hits()
+    {
+        AdDisplayManager.instance.ShowAd();
+        GameManager.instance.SetHits(0);
+        GameManager.instance.SetAdd(Random.Range(3, 6));
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Tube"))
         {
+            GameManager.instance.SetHits(GameManager.instance.GetHits() + 1);
             AudioManager.instance.PlayAudio(deathSound, "DeathSound", false, 0.08f);
             Destroy(this);
+            if (GameManager.instance.GetHits() >= GameManager.instance.GetAdd()) 
+            {
+                Hits();
+                GameManager.instance.SetHits(0);
+            }
         }
     }
 

@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public enum GameManagerVariables { POINTS };
-    private int points;
-
+    private int points, hits, currentAdd;
+    
     private void Awake()
     {
         //SINGLETON
@@ -22,16 +22,37 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // se destruye el gameobject, para que no haya dos o mas gms en el juego
         }
     }
+    private void Start()
+    {
+        currentAdd = Random.Range(3,6);
+    }
 
     //getter
     public int GetPoints() //recuento de puntos
     {
         return points;
     }
+
+    public int GetHits()
+    {
+        return hits;
+    }
+    public int GetAdd()
+    {
+        return currentAdd;
+    }
     //setter
     public void SetPoints(int value)
     {
         points = value;
+    }
+    public void SetHits(int value)
+    { 
+        hits = value; 
+    }
+    public void SetAdd(int value)
+    { 
+        currentAdd = value; 
     }
     
     //callback ---> funcion que se va a llamar en el onclick() de los botones

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SpawnerTube : MonoBehaviour
 {
-    public PoolTube pipePool;
+    public PoolTube tubePool;
 
-    public float maxTime, heightRange, currentTime;
+    public float maxTime, currentTime, heightRange;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class SpawnerTube : MonoBehaviour
 
     public void SpawnTube()
     {
-        GameObject obj = pipePool.GimmeInactiveGameObject();
+        GameObject obj = tubePool.GimmeInactiveGameObject();
         if (obj)
         {
             obj.SetActive(true);

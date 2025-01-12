@@ -8,7 +8,7 @@ public class Points : MonoBehaviour
     public int points;
     public AudioClip pointSound;
 
-    public GameObject invisible;
+    public GameObject checkpoint;
 
     public void Update()
     {
@@ -16,7 +16,7 @@ public class Points : MonoBehaviour
 
         if (currentTime >= maxTime)
         {
-            invisible.gameObject.transform.position += Vector3.up * -10;
+            checkpoint.gameObject.transform.position += Vector3.up * -10;
             currentTime = 0;
         }
 
@@ -27,7 +27,7 @@ public class Points : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
 
-            invisible.gameObject.transform.position += Vector3.up * 10;
+            checkpoint.gameObject.transform.position += Vector3.up * 10;
             AudioManager.instance.PlayAudio(pointSound, "PointSound", false, 0.08f);
             GameManager.instance.SetPoints(GameManager.instance.GetPoints() + points);
 
