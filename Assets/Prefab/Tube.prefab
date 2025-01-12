@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3c0d2ab555cfc46802c7ec1d5df397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallingSound: {fileID: 8300000, guid: 5816989e7deebc245bac5beaf2e6d730, type: 3}
+  fallSound: {fileID: 8300000, guid: 5816989e7deebc245bac5beaf2e6d730, type: 3}
 --- !u!1 &5587269876196923686
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +190,7 @@ MonoBehaviour:
   maxTime: 8
   points: 1
   pointSound: {fileID: 8300000, guid: 89b129feaefaf064989617d80b92e14c, type: 3}
-  invisible: {fileID: 5587269876196923686}
+  checkpoint: {fileID: 5587269876196923686}
 --- !u!1 &7187837417271017310
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,9 +312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2af339b6b25ec46ac4aae6e6427a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeSpeed: 2
+  tubeSpeed: 3
+  maxTime: 10
   currentTime: 0
-  maxTime: 15
-  deathTime: 0
   resetTime: 2
-  fallingSound: {fileID: 8300000, guid: 5816989e7deebc245bac5beaf2e6d730, type: 3}
+  deathTime: 0
+  fallSound: {fileID: 8300000, guid: 5816989e7deebc245bac5beaf2e6d730, type: 3}
